@@ -36,10 +36,10 @@ fprintf('Max X: %f\n', res(impact_index, 1));
 
 % Plot the flightpath of the rocket
 figure; hold on; grid on; axis equal;
-% axis([0 100 0 40])
-% plot(res(:, 1), res(:,3));
+
 plot3(res(:, 1), res(:, 2), res(:,3));
-plot3([0 wind(1)], [0 wind(2)], [0 wind(3)]);
+quiver3(0, 0, 0, wind(1), wind(2), wind(3));
+
 xlabel('Downrange Distance x (m)');
 ylabel('Crossrange Distance y (m)');
 zlabel('Vertical Distance z (m)');
