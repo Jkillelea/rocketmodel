@@ -24,7 +24,7 @@ m_air0   = cfg.m_air0;
 tmax     = cfg.tmax;
 
 inital_conds = [coords0, vel0, m0, vol_air0, m_air0];
-[t, res] = ode45('rocket_new', [0, tmax], inital_conds, cfg);
+[t, res] = ode45('rocket', [0, tmax], inital_conds, cfg);
 
 % Find where the rocket hits the ground
 impact_index = find(res(:, 3) <= 0, 1, 'first');
@@ -35,9 +35,10 @@ fprintf('Max Z: %f\n', max(res(:, 3)));
 fprintf('Max X: %f\n', res(impact_index, 1));
 
 % Plot the flightpath of the rocket
-figure; hold on; grid on;
-axis([0 100 0 40])
-plot(res(:, 1), res(:,3));
-set(get(gca,'Title'),'String','Flight Path of Rocket');
-set(get(gca,'XLabel'),'String','Downrange distance, x (m)');
-set(get(gca,'YLabel'),'String','Vertical distance, z (m)');
+figure; hold on; grid on; axis equal;
+% axis([0 100 0 40])
+% plot(res(:, 1), res(:,3));
+plot3(res(:, 1), res(:, 2), res(:,3));
+xlabel('Downrange Distance x (m)');
+ylabel('Crossrange Distance y (m)');
+zlabel('Vertical Distance z (m)');
