@@ -6,10 +6,9 @@
 % OUTPUTS: text of max height and range, graph of rocket flight
 % Given  : variables in 'globals,m'
 
-clear;
-close all;
-clc;
-
+clear; close all; clc;
+addpath(genpath('rocket'));
+addpath(genpath('conf'));
 %%%%%%%%%% Constants %%%%%%%%%%
 cfg = get_cfg();
 
@@ -22,6 +21,7 @@ pitch0   = cfg.pitch0;
 vol_air0 = cfg.vol_air0;
 m_air0   = cfg.m_air0;
 tmax     = cfg.tmax;
+wind     = cfg.wind;
 
 inital_conds = [coords0, vel0, m0, vol_air0, m_air0];
 [t, res] = ode45('rocket', [0, tmax], inital_conds, cfg);
@@ -39,6 +39,7 @@ figure; hold on; grid on; axis equal;
 % axis([0 100 0 40])
 % plot(res(:, 1), res(:,3));
 plot3(res(:, 1), res(:, 2), res(:,3));
+plot3([0 wind(1)], [0 wind(2)], [0 wind(3)]);
 xlabel('Downrange Distance x (m)');
 ylabel('Crossrange Distance y (m)');
 zlabel('Vertical Distance z (m)');

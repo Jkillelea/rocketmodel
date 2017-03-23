@@ -1,4 +1,4 @@
-function results = rocket_new(~, conds)
+function results = rocket(~, conds)
   coords  = [conds(1) conds(2) conds(3)]; % x y z coords
   vel_vec = [conds(4) conds(5) conds(6)]; % x y z velocity
   m       = conds(7);
@@ -29,13 +29,13 @@ function results = rocket_new(~, conds)
   else
     relative_vel  = vel_vec - wind;
   end
+
   dir_vec       = relative_vel ./ norm(relative_vel);
   drag          = drag_calc(norm(relative_vel))*dir_vec;
   P_water_phase = P0*(vol_air0/vol_air)^1.4;
 
   % State when we run out of water
   P_end   = P0*(vol_air0/vol_bottle)^1.4;
-  % T_end   = T0*(vol_air0/vol_bottle)^(1.4-1);
   P_air   = P_end*(m_air/m_air0)^1.4; % pressure during the air phase depends on the mass of air
   rho_air = m_air/vol_bottle;
   T       = P_air/(rho_air*R);
@@ -65,16 +65,16 @@ function results = rocket_new(~, conds)
       T_e   = T * (1 + (0.4/2)*(M_e^2));             % calc temperature at exit from mach number, isentropic relations
       V_e   = M_e * sqrt(1.4*R*T_e);                 % calculate velocity from mach number
       rho_e = P_amb/(R * T_e);                       % density from ideal gas equation
-
     end
+    
     dm       = 0;
     dm_air   = -c_disch*rho_e*A_t*V_e;
-    f_thrust   = -dm_air*V_e+(P_e-P_amb)*A_t;
+    f_thrust = -dm_air*V_e+(P_e-P_amb)*A_t;
     dvol_air = 0;
 
   % no thrust
   else
-    f_thrust   = 0;
+    f_thrust = 0;
     dvol_air = 0;
     dm       = 0;
     dm_air   = 0;
