@@ -1,4 +1,4 @@
-function [maxrange, water_vol] = test_water(water_vol_range)
+function [maxrange, water_vol] = test_water()
   addpath(genpath('../'));
 
   cfg        = get_cfg;
@@ -12,6 +12,7 @@ function [maxrange, water_vol] = test_water(water_vol_range)
   R          = cfg.R;
   tmax       = cfg.tmax;
 
+  water_vol_range = linspace(0.0005, 0.002, 100); % [m^3]
   maxrange  = [];
   water_vol = [];
 
