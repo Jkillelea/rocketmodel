@@ -7,8 +7,7 @@
 % Given  : variables in 'globals,m'
 
 clear; close all; clc;
-addpath(genpath('rocket'));
-addpath(genpath('conf'));
+addpath(genpath('.'));
 %%%%%%%%%% Constants %%%%%%%%%%
 cfg = get_cfg();
 
@@ -17,7 +16,6 @@ vel0     = cfg.vel0;
 m0       = cfg.m0;
 v0       = cfg.v0;
 hdg0     = cfg.hdg0;
-pitch0   = cfg.pitch0;
 vol_air0 = cfg.vol_air0;
 m_air0   = cfg.m_air0;
 tmax     = cfg.tmax;
@@ -27,17 +25,21 @@ inital_conds = [coords0, vel0, m0, vol_air0, m_air0];
 [t, res] = ode45('rocket', [0, tmax], inital_conds, cfg);
 
 % Find where the rocket hits the ground
-impact_index = find(res(:, 3) <= 0, 1, 'first');
-max_x        = res(impact_index, 1);
+coords = res(:, 1:3);
+impact_index = find(coords(:, 3) <= 0, 1, 'first');
+max_x        = coords(impact_index, 1);
+impact_pt    = coords(impact_index, :);
 
 % Print it out
-fprintf('Max Z: %f\n', max(res(:, 3)));
-fprintf('Max X: %f\n', res(impact_index, 1));
+fprintf('Max X = %f\n', impact_pt(1));
+fprintf('Max Z = %f\n', max(coords(:, 3)));
+fprintf('Downrange distance %f meters\n', norm(impact_pt(1:2)));
 
 % Plot the flightpath of the rocket
 figure; hold on; grid on; axis equal;
 
 plot3(res(:, 1), res(:, 2), res(:,3));
+plot3([0, impact_pt(1)], [0, impact_pt(2)], [0, impact_pt(3)]);
 quiver3(0, 0, 0, wind(1), wind(2), wind(3));
 
 xlabel('Downrange Distance x (m)');
