@@ -11,13 +11,13 @@ function results = rocket(~, conds)
   end
 
   % import config
-  cfg        = get_cfg;
-  g          = cfg.g;
-  wind       = cfg.wind;
+  cfg  = get_cfg;
+  g    = cfg.g;
+  wind = cfg.wind;
 
   if norm(coords) < 0.5 % if we haven't gone very far, ignore wind and gravity (still on rails)
     wind = 0;
-    g = 0;
+    g    = 0;
   end
 
   relative_vel  = vel_vec - wind;
