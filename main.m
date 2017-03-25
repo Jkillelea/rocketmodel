@@ -4,13 +4,12 @@
 % INPUTS : none
 % RETURNS: none
 % OUTPUTS: text of max height and range, graph of rocket flight
-% Given  : variables in 'globals,m'
-
+% Given  : variables in 'conf/get_cfg.m'
 clear; close all; clc;
 addpath(genpath('.'));
-%%%%%%%%%% Constants %%%%%%%%%%
-cfg = get_cfg();
 
+%%%%%%%%%% Constants %%%%%%%%%%
+cfg = get_cfg;
 coords0  = cfg.coords0;
 vel0     = cfg.vel0;
 m0       = cfg.m0;
