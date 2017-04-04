@@ -12,7 +12,8 @@ function [maxrange, water_vol] = test_water()
   R          = cfg.R;
   tmax       = cfg.tmax;
 
-  water_vol_range = linspace(0.0005, 0.002, 100); % [m^3]
+  num_iterations = 100;
+  water_vol_range = linspace(0.0005, 0.002, num_iterations); % [m^3]
   maxrange  = [];
   water_vol = [];
 
