@@ -18,13 +18,13 @@ function conf = get_cfg()
   m_empty     = 0.07;                     % [kg]
   Cd          = 0.5;                      % drag cooefienct
   P0          = toPa(40) + P_amb;         % 50 psi gage
-  Vol_water_0 = 0.00047;                    % [m^3]
+  Vol_water_0 = 0.00047;                  % [m^3]
   vol_air0    = vol_bottle - Vol_water_0; % [m^3]
   T0          = 300;                      % 27 degree C day (300K)
 
   m0      = m_empty + Vol_water_0*rho_w; % empty mass plus mass of water
   m_air0  = vol_air0*P0/(R*T0);          % volume of air times density of air V*(P/RT)
-  v0      = 0;                           % must be greater than 0 [m/s]
+  v0      = 0.3;                           % must be greater than 0 [m/s]
   hdg0    = 0;                           % degrees
   tmax    = 10;                          % seconds
   x0      = 0;                           % meters
@@ -33,8 +33,8 @@ function conf = get_cfg()
   coords0 = [x0 y0 z0];
 
   launch_angle = 39; % degress
-  vel0   = 0.3*[cosd(launch_angle) 0 sind(launch_angle)];% launch along x-y plane
-  wind   = [0 20 0]; % m/s vector
+  vel0         = v0*[cosd(launch_angle) 0 sind(launch_angle)];% launch along x-y plane
+  wind         = [0 0 0]; % m/s vector
 
   conf = struct( ...
     'g',           g,           ...

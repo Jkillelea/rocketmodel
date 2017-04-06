@@ -1,4 +1,5 @@
 function results = rocket(~, conds)
+  global cfg;
   coords  = conds(1:3)'; % x y z coords
   vel_vec = conds(4:6)'; % x y z velocity
   m       = conds(7); % current total mass
@@ -11,7 +12,6 @@ function results = rocket(~, conds)
   end
 
   % import config
-  cfg  = get_cfg;
   g    = cfg.g;
   wind = cfg.wind;
 
@@ -24,7 +24,7 @@ function results = rocket(~, conds)
   dir_vec       = relative_vel ./ norm(relative_vel);
   drag          = drag_calc(norm(relative_vel))*dir_vec;
 
-  [f_thrust, dvol_air, dm, dm_air] = thrust_calc(vol_air, m_air, cfg); % all the painful equations are here
+  [f_thrust, dvol_air, dm, dm_air] = thrust_calc(vol_air, m_air); % all the painful equations are here
 
   thrust    = f_thrust*dir_vec;
   accel_vec = (thrust - drag - m*[0 0 g])/m;

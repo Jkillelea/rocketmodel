@@ -9,7 +9,8 @@ clear; close all; clc;
 addpath(genpath('.'));
 
 %%%%%%%%%% Constants %%%%%%%%%%
-cfg = get_cfg;
+global cfg;
+cfg      = get_cfg;
 coords0  = cfg.coords0;
 vel0     = cfg.vel0;
 m0       = cfg.m0;
@@ -38,7 +39,7 @@ fprintf('Downrange distance %f meters\n', norm(impact_pt(1:2)));
 figure; hold on; grid on; axis equal;
 
 plot3(res(:, 1), res(:, 2), res(:,3));
-plot3([0, impact_pt(1)], [0, impact_pt(2)], [0, impact_pt(3)]);
+scatter3(impact_pt(1), impact_pt(2), impact_pt(3));
 quiver3(0, 0, 0, wind(1), wind(2), wind(3));
 
 xlabel('Downrange Distance x (m)');

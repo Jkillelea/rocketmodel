@@ -1,4 +1,5 @@
-function [f_thrust, dvol_air, dm, dm_air] = thrust_calc(vol_air, m_air, cfg)
+function [f_thrust, dvol_air, dm, dm_air] = thrust_calc(vol_air, m_air)
+  global cfg;
   c_disch    = cfg.c_disch;
   A_t        = cfg.A_t;
   rho_w      = cfg.rho_w;

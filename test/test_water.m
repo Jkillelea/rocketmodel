@@ -1,29 +1,17 @@
 function [maxrange, water_vol] = test_water()
   addpath(genpath('../'));
 
-  cfg        = get_cfg;
-  coords0    = cfg.coords0;
-  vel0       = cfg.vel0;
-  vol_bottle = cfg.vol_bottle;
-  m_empty    = cfg.m_empty;
-  rho_w      = cfg.rho_w;
-  P0         = cfg.P0;
-  T0         = cfg.T0;
-  R          = cfg.R;
-  tmax       = cfg.tmax;
+  global cfg;
 
   num_iterations = 100;
-  water_vol_range = linspace(0.0005, 0.002, num_iterations); % [m^3]
+  water_vol_range = linspace(0.00001, 0.00129, num_iterations); % [m^3]
   maxrange  = [];
   water_vol = [];
 
   for w_vol = water_vol_range
-    Vol_water_0 = w_vol;                       % [m^3]
-    vol_air0    = vol_bottle - Vol_water_0;    % [m^3]
-    m0          = m_empty + Vol_water_0*rho_w; % empty mass plus mass of water
-    m_air0      = vol_air0*P0/(R*T0);          % volume of air times density of air V*(P/RT)
+    cfg = get_cfg_w_water_vol(w_vol);
 
-    [~, res] = ode45('rocket', [0, tmax], [coords0, vel0, m0, vol_air0, m_air0]);
+    [~, res] = ode45('rocket', [0, cfg.tmax], [cfg.coords0, cfg.vel0, cfg.m0, cfg.vol_air0, cfg.m_air0]);
 
     x = res(:, 1);
     maxrange(end+1)  = max(x);

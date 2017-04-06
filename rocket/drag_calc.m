@@ -1,5 +1,5 @@
 function d = drag_calc(v)
-  cfg = get_cfg();
+  global cfg;
   rho         = cfg.rho_atmo;
   Cd          = cfg.Cd;
   bottle_area = cfg.bottle_area;
