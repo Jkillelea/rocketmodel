@@ -5,8 +5,8 @@ function [maxrange, angles] = test_angle()
 
   % test from 1 to 89 degrees
   angle_range = 1:89;
-  maxrange = [];
-  angles   = [];
+  maxrange    = [];
+  angles      = [];
 
   for launch_angle = angle_range
     cfg = get_cfg_w_launch_angle(launch_angle);

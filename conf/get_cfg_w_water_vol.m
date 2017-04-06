@@ -8,7 +8,6 @@ function cfg = get_cfg_w_water_vol(w_vol)
 
   cfg.Vol_water_0 = w_vol;                                     % [m^3]
   cfg.vol_air0    = cfg.vol_bottle - cfg.Vol_water_0;          % [m^3]
-  cfg.T0          = 300;                                       % 27 degree C day (300K)
   cfg.m0          = cfg.m_empty + cfg.Vol_water_0 * cfg.rho_w; % empty mass plus mass of water
   cfg.m_air0      = cfg.vol_air0 * cfg.P0 / (cfg.R * cfg.T0);  % volume of air times density of air V*(P/RT)
 
