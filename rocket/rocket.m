@@ -15,7 +15,7 @@ function results = rocket(~, conds)
   g    = cfg.g;
   wind = cfg.wind;
 
-  if norm(coords) < 0.5 % if we haven't gone very far, ignore wind and gravity (still on rails)
+  if norm(coords) < 0.606 % if we haven't gone very far, ignore wind and gravity (still on rails)
     wind = 0;
     g    = 0;
   end
