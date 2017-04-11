@@ -10,17 +10,17 @@ function conf = get_cfg()
   P_amb       = toPa(12.03);              % ambient pressure [Pa]
   g_air       = 1.4;                      % gas constant (Cv/Cp)
   rho_w       = 1000;                     % [kg/m^3]
-  D_t         = 2.1/100;                  % diameter of throat [m]
+  D_t         = 2.3/100;                  % diameter of throat [m]
   A_t         = (pi/4)*(D_t^2);           % area of throat [m^2]
   bottle_diam = 10.5/100;                 % diameter of bottle [m]
   bottle_area = (pi/4)*(bottle_diam^2);   % area of bottle [m^2]
   R           = 287;                      % [J/(kg*K)]
-  m_empty     = 0.07;                     % [kg]
-  Cd          = 0.5;                      % drag cooefienct
+  m_empty     = 0.144;                    % [kg]
+  Cd          = 0.4;                      % drag cooefienct
   P0          = toPa(40) + P_amb;         % 50 psi gage
-  Vol_water_0 = 0.00047;                  % [m^3]
+  Vol_water_0 = 0.999/1000;               % liter
   vol_air0    = vol_bottle - Vol_water_0; % [m^3]
-  T0          = 300;                      % 27 degree C day (300K)
+  T0          = 27 + 273;                 % 27 degree C day (300K)
 
   m0      = m_empty + Vol_water_0*rho_w; % empty mass plus mass of water
   m_air0  = vol_air0*P0/(R*T0);          % volume of air times density of air V*(P/RT)
@@ -32,7 +32,7 @@ function conf = get_cfg()
   z0      = 0.1;                         % meters
   coords0 = [x0 y0 z0];
 
-  launch_angle = 39; % degress
+  launch_angle = 45; % degress
   vel0         = v0*[cosd(launch_angle) 0 sind(launch_angle)];% launch along x-y plane
   wind         = [0 0 0]; % m/s vector
 
