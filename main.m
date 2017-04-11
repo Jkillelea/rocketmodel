@@ -33,12 +33,12 @@ impact_pt    = coords(impact_index, :);
 % Print it out
 fprintf('Max X = %f\n', impact_pt(1));
 fprintf('Max Z = %f\n', max(coords(:, 3)));
-fprintf('Downrange distance %f meters\n', norm(impact_pt(1:2)));
+fprintf('Downrange distance %f meters (%f ft)\n', norm(impact_pt(1:2)), 3.3*norm(impact_pt(1:2)));
 
 % Plot the flightpath of the rocket
 figure; hold on; grid on; axis equal;
 
-plot3(res(:, 1), res(:, 2), res(:,3));
+plot3(coords(:, 1), coords(:, 2), coords(:,3));
 scatter3(impact_pt(1), impact_pt(2), impact_pt(3));
 quiver3(0, 0, 0, wind(1), wind(2), wind(3));
 
