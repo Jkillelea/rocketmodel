@@ -1,4 +1,4 @@
-function results = rocket(~, conds)
+function results = rocket(t, conds)
   global cfg;
   coords  = conds(1:3)'; % x y z coords
   vel_vec = conds(4:6)'; % x y z velocity
@@ -24,7 +24,12 @@ function results = rocket(~, conds)
   dir_vec       = relative_vel ./ norm(relative_vel);
   drag          = drag_calc(norm(relative_vel))*dir_vec;
 
+  %%%%%%%%%% Force Curve %%%%%%%%%%
+  global force_accumulator;
+
   [f_thrust, dvol_air, dm, dm_air] = thrust_calc(vol_air, m_air); % all the painful equations are here
+
+  force_accumulator(end+1, :) = [t, f_thrust];
 
   thrust    = f_thrust*dir_vec;
   accel_vec = (thrust - drag - m*[0 0 g])/m;
