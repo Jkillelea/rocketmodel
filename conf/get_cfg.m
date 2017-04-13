@@ -15,7 +15,7 @@ function conf = get_cfg()
   bottle_diam = 10.5/100;                 % diameter of bottle [m]
   bottle_area = (pi/4)*(bottle_diam^2);   % area of bottle [m^2]
   R           = 287;                      % [J/(kg*K)]
-  m_empty     = 0.144;                    % [kg]
+  m_empty     = 0.109231;                 % [kg]
   Cd          = 0.4;                      % drag cooefienct
   P0          = toPa(40) + P_amb;         % 50 psi gage
   Vol_water_0 = 0.999/1000;               % liter
@@ -32,9 +32,13 @@ function conf = get_cfg()
   z0      = 0.1;                         % meters
   coords0 = [x0 y0 z0];
 
-  launch_angle = 45; % degress
+  launch_angle = 41; % degress
   vel0         = v0*[cosd(launch_angle) 0 sind(launch_angle)];% launch along x-y plane
-  wind         = [0 0 0]; % m/s vector
+
+
+  wind_speed = 0; % mph
+  wind_dir   = 0; % degrees
+  wind = wind_speed.*[cosd(wind_dir) sind(wind_dir) 0]; % m/s vector
 
   conf = struct( ...
     'g',           g,           ...
