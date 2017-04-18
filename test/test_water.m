@@ -4,7 +4,7 @@ function [maxrange, water_vol] = test_water()
   global cfg;
 
   num_iterations = 100;
-  water_vol_range = linspace(0.00001, 0.00129, num_iterations); % [m^3]
+  water_vol_range = linspace(0.00001, 0.001, num_iterations); % [m^3]
   maxrange  = [];
   water_vol = [];
 
@@ -16,5 +16,6 @@ function [maxrange, water_vol] = test_water()
     x = res(:, 1);
     maxrange(end+1)  = max(x);
     water_vol(end+1) = w_vol;
+    fprintf('.');
   end
 end
