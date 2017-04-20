@@ -21,10 +21,10 @@ function conf = get_cfg
   bottle_diam = (7.25)/100;               % diameter of bottle [m] (enter cm)
   bottle_area = (pi/4)*(bottle_diam^2);   % area of bottle [m^2]
   R           = 287;                      % [J/(kg*K)]
-  m_empty     = 122.5/1000;               % [kg]
+  m_empty     = 143/1000;               % [kg]
   Cd          = 0.457931;                 % drag cooefienct
   P0          = toPa(40) + P_amb;         % 50 psi gage
-  Vol_water_0 = (0.559)/1000;               % enter liter
+  Vol_water_0 = (0.420)/1000;               % enter liter
   vol_air0    = vol_bottle - Vol_water_0; % [m^3]
   T0          = 27 + 273;                 % 27 degree C day (300K)
 
@@ -41,8 +41,8 @@ function conf = get_cfg
   launch_angle = 41; % degress
   vel0         = v0*[cosd(launch_angle) 0 sind(launch_angle)];% launch along x-y plane
 
-  wind_speed = (2)*0.447; % enter miles per hour
-  wind_dir   = 'NE'; % degrees
+  wind_speed = (5)*0.447; % enter miles per hour
+  wind_dir   = 'W'; % degrees
   [wx, wy]   = convert_wind(wind_dir, wind_speed);
   wind       = [wx, wy, 0]; % m/s vector
 

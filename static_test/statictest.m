@@ -65,15 +65,38 @@ for i = 1:numfiles
   Peak_Thrust(i)  = max(z);
 
   % should give the standard deviation
-  val = std2(data);
-  %population is 12000
+  val = std2(z);
+  % population is 12000
   n = 12000;
 
   x_bar = val./sqrt(n);
 end
 
-close all;
+% for 95% confidence we use 1.96*SEM as a bounding parameter
+SEM = @(N) std(Isp) ./ sqrt(N);
 
+figure;
+plot(1:100, SEM(1:100))
+title('SEM vs Number of Datasets')
+ylabel('SEM');
+xlabel('Datasets');
+
+
+std_dev = std(Isp);
+
+disp((1.96*std_dev/0.1)^2);
+disp((2.24*std_dev/0.1)^2);
+disp((2.58*std_dev/0.1)^2);
+disp((1.96*std_dev/0.01)^2);
+disp((2.24*std_dev/0.01)^2);
+disp((2.58*std_dev/0.01)^2);
+
+
+
+
+
+
+%  print out tables1
 fprintf('\n');
 fprintf('%28s %10s %15s %16s \n', 'Name', 'Isp [s]', 'Peak Thrust [N]', 'Elapsed Time [s]');
 for i = 1:numfiles

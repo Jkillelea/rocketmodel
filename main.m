@@ -38,7 +38,7 @@ impact_pt    = coords(impact_index, :);
 fprintf('Max X = %f\n', impact_pt(1));
 fprintf('Max Z = %f\n', max(coords(:, 3)));
 fprintf('Downrange distance %f meters (%f ft)\n', norm(impact_pt(1:2)), 3.3*norm(impact_pt(1:2)));
-
+fprintf('angle %f\n', tand(impact_pt(2)/impact_pt(1)));
 % Plot the flightpath of the rocket
 figure; hold on; grid on; axis equal;
 
