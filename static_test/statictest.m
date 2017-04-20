@@ -50,6 +50,8 @@ for i = 1:numfiles
   plot(time, z);
   plot(time(1), z(1), 'go')
   plot(time(end),   z(end),   'ro')
+  xlabel('Time, t [seconds]');
+  ylabel('Thrust, F [Newtons]');
 
   % integrate the force curve for total impulse
   impulse = trapz(time, z);
