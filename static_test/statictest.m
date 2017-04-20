@@ -5,11 +5,13 @@ numfiles = length(files);
 Isp          = zeros(numfiles, 1);
 MaxT         = zeros(numfiles, 1);
 Time_Elapsed = zeros(numfiles, 1);
+Peak_Thrust  = zeros(numfiles, 1);
+File_Names   = cell(1, numfiles);
 
 for i = 1:numfiles
   fname = files(i).name;
   data = load(fname);
-  disp(fname)
+  File_Names{i} = fname;
 
   % sampling size frequency is 1.652 kHz so time can be computed for the x-axis
   % z is the summation of the two load cells
@@ -59,7 +61,8 @@ for i = 1:numfiles
   % divide by weight of propellant for specific impulse
   Isp(i)          = impulse./(9.81);
   MaxT(i)         = Isp(i).*(1000/time(i)).*8.91;
-  Time_Elapsed(i) = time(i);
+  Time_Elapsed(i) = time(end) - time(1);
+  Peak_Thrust(i)  = max(z);
 
   % should give the standard deviation
   val = std2(data);
@@ -68,3 +71,18 @@ for i = 1:numfiles
 
   x_bar = val./sqrt(n);
 end
+
+close all;
+
+fprintf('\n');
+fprintf('%28s %10s %15s %16s \n', 'Name', 'Isp [s]', 'Peak Thrust [N]', 'Elapsed Time [s]');
+for i = 1:numfiles
+  fname = File_Names{i};
+  isp = Isp(i);
+  pk_thr = Peak_Thrust(i);
+  elapsed = Time_Elapsed(i);
+  fprintf('%28s %10.2f %15.0f %16.2f\n', fname, isp, pk_thr, elapsed);
+end
+fprintf('sigma ISP %.2f, sigma Peak Thrust %.0f, sigma Elapsed Time %.2f\n', std(Isp),         ...
+                                                                       std(Peak_Thrust), ...
+                                                                       std(Time_Elapsed));
