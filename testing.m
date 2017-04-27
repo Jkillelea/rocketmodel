@@ -59,7 +59,7 @@ xlabel('mass, kg');
 ylabel('downrange distance, m');
 print(fig, '-dpng', 'mass_test');
 
-% test mass
+% test Cd
 disp('Cd');
 [cd_range, cd]      = test_cd;
 [max_cd_range, idx] = max(cd_range);
@@ -73,3 +73,18 @@ title('C_d vs Distance');
 xlabel('C_d');
 ylabel('downrange distance, m');
 print(fig, '-dpng', 'cd_test');
+
+% test Cd
+disp('Pressure');
+[pressure_range, pressure]      = test_pressure;
+[max_pressure_range, idx] = max(pressure_range);
+max_pressure              = pressure(idx);
+disp(' ');
+fprintf('max range at pressure = %f\n', max_pressure);
+
+fig = figure;
+scatter(pressure, pressure_range);
+title('Pressure vs Distance');
+xlabel('Pressure [PSI]');
+ylabel('downrange distance, m');
+print(fig, '-dpng', 'pressure_test');
