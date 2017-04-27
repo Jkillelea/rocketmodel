@@ -81,20 +81,14 @@ title('SEM vs Number of Datasets')
 ylabel('SEM');
 xlabel('Datasets');
 
-
-std_dev = std(Isp);
-
-disp((1.96*std_dev/0.1)^2);
-disp((2.24*std_dev/0.1)^2);
-disp((2.58*std_dev/0.1)^2);
-disp((1.96*std_dev/0.01)^2);
-disp((2.24*std_dev/0.01)^2);
-disp((2.58*std_dev/0.01)^2);
-
-
-
-
-
+% SEM examples
+% std_dev = std(Isp);
+% disp((1.96*std_dev/0.1)^2);
+% disp((2.24*std_dev/0.1)^2);
+% disp((2.58*std_dev/0.1)^2);
+% disp((1.96*std_dev/0.01)^2);
+% disp((2.24*std_dev/0.01)^2);
+% disp((2.58*std_dev/0.01)^2);
 
 %  print out tables1
 fprintf('\n');
