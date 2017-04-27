@@ -9,7 +9,6 @@ clear; close all; clc;
 addpath(genpath('.'));
 
 %%%%%%%%%% Constants %%%%%%%%%%
-global cfg;
 cfg      = get_cfg;
 coords0  = cfg.coords0;
 vel0     = cfg.vel0;
@@ -26,7 +25,7 @@ global force_accumulator;
 force_accumulator = [];
 
 inital_conds = [coords0, vel0, m0, vol_air0, m_air0];
-[t, res] = ode45('rocket', [0, tmax], inital_conds, cfg);
+[t, res] = ode45(@(t, y) rocket(t, y, cfg), [0, tmax], inital_conds, cfg);
 
 % Find where the rocket hits the ground
 coords = res(:, 1:3);
@@ -60,3 +59,6 @@ fileID = fopen('model_force_curve', 'w');
 fprintf(fileID, '%%timestamp force \n');
 fprintf(fileID, '%f\n', f_thrust(select));
 fclose(fileID);
+
+
+% TODO => find a way to do the fucking Isp
