@@ -20,19 +20,23 @@ function [f_thrust, dvol_air, dm, dm_air] = thrust_calc(vol_air, m_air, cfg)
 
   % water thrust
   if vol_air < cfg.vol_bottle
+    logstring = 'water thrust';
     dm_air   = 0;
     dm       = -c_disch*A_t*sqrt( 2*rho_w*(P_water_phase-P_amb) );
     f_thrust = 2*c_disch*(P_water_phase - P_amb)*A_t;             % force of water exiting bottle
     dvol_air = c_disch*A_t*sqrt( (2/rho_w)*(P_water_phase-P_amb) );
   % air thrust
   elseif P_air > P_amb
+    logstring = 'air thrust';
     if P_crit > P_amb % check for choked flow
+      logstring = [logstring, ' choked'];
       P_e   = P_crit;          % pressure at the exit is the critical pressure
       T_e   = 2/(2.4)*T;       % temperature
       V_e   = sqrt(1.4*R*T_e); % velocity is mach 1 (temperature at exit derived from temp in bottle)
       rho_e = P_e/(R*T_e);     % density from ideal gas equation
 
     else % unchoked
+      logstring = [logstring, ' unchoked'];
       P_e   = P_amb;                                 % pressure at the exit is ambient pressure
       M_e   = sqrt( (2/0.4)*( ((P_air/P_amb)^(0.4/1.4)) - 1)); % calculate mach number from pressure ratio
       T_e   = T * (1 + (0.4/2)*(M_e^2));             % calc temperature at exit from mach number, isentropic relations
@@ -47,9 +51,11 @@ function [f_thrust, dvol_air, dm, dm_air] = thrust_calc(vol_air, m_air, cfg)
 
   % no thrust
   else
+    logstring = 'no thrust';
     f_thrust = 0;
     dvol_air = 0;
     dm       = 0;
     dm_air   = 0;
   end
+  debuglog(logstring);
 end

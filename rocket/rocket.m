@@ -6,6 +6,7 @@ function results = rocket(t, conds, cfg)
   m_air   = conds(9); % air mass
 
   if coords(3) < 0 % if rocket has hit the ground return all zeros (frozen)
+    % debuglog('hit ground');
     results = zeros(length(conds), 1);
     return
   end
