@@ -34,6 +34,8 @@ results = results(selector, :);
 
 % plot landing points
 fig = figure; hold on;
+xlabel('Crossrange Distance [meters]');
+ylabel('Downrange Distance [meters]');
 for i = 1:length(results)
   point = results(i, :);
   scatter(results(i, 2), results(i, 1))
