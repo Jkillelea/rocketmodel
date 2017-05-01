@@ -1,4 +1,11 @@
 function results = rocket(t, conds, cfg)
+  % Check to see if we've gone over the maximum number of attempts
+  global ATTEMPT_MAX ATTEMPT_NUMBER
+  if ATTEMPT_NUMBER >= ATTEMPT_MAX
+    throw('ATTEMPT ABORTED')
+  end
+  ATTEMPT_NUMBER = ATTEMPT_NUMBER + 1;
+
   coords  = conds(1:3)'; % x y z coords
   vel_vec = conds(4:6)'; % x y z velocity
   m       = conds(7); % current total mass

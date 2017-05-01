@@ -4,14 +4,23 @@ global DEBUG_LOG;
 DEBUG_LOG = false;
 addpath(genpath('.'));
 
-NUM_TERATIONS = 25;
+global ATTEMPT_MAX ATTEMPT_NUMBER
+ATTEMPT_MAX = 10000;
+NUM_TERATIONS = 100;
 results       = zeros(NUM_TERATIONS, 2); % x and y coords
 
 for i = 1:NUM_TERATIONS
-  cfg = random_cfg;
+  ATTEMPT_NUMBER = 0;
+  cfg            = random_cfg;
+  inital_conds   = [cfg.coords0, cfg.vel0, cfg.m0, cfg.vol_air0, cfg.m_air0];
 
-  inital_conds = [cfg.coords0, cfg.vel0, cfg.m0, cfg.vol_air0, cfg.m_air0];
-  [t, res]     = ode45(@(t, y) rocket(t, y, cfg), [0, cfg.tmax], inital_conds, cfg);
+  try
+    [t, res] = ode45(@(t, y) rocket(t, y, cfg), [0, cfg.tmax], inital_conds, cfg);
+  catch
+    disp('ABORTED');
+    continue
+    % break
+  end
   coords       = res(:, 1:3);
   impact_index = find(coords(:, 3) <= 0, 1, 'first');
   max_x        = coords(impact_index, 1);
@@ -23,7 +32,7 @@ for i = 1:NUM_TERATIONS
     continue
   end
   results(i, :) = impact_pt(1:2); % save x and y
-  disp(sprintf('%d/%d\n', i, NUM_TERATIONS));
+  fprintf('%d/%d\n', i, NUM_TERATIONS);
 end
 fprintf('\n');
 
