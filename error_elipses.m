@@ -23,7 +23,7 @@ for i = 1:NUM_TERATIONS
     continue
   end
   results(i, :) = impact_pt(1:2); % save x and y
-  fprintf('.');
+  disp(sprintf('%d/%d\n', i, NUM_TERATIONS));
 end
 fprintf('\n');
 
@@ -33,7 +33,7 @@ selector = results(:, 1) > 0;
 results = results(selector, :);
 
 % plot landing points
-figure; hold on;
+fig = figure; hold on;
 for i = 1:length(results)
   point = results(i, :);
   scatter(results(i, 2), results(i, 1))
@@ -61,3 +61,5 @@ y_vect  = xy_vect(:, 2);
 plot(1*x_vect+mean_x, 1*y_vect+mean_y, 'b')
 plot(2*x_vect+mean_x, 2*y_vect+mean_y, 'g')
 plot(3*x_vect+mean_x, 3*y_vect+mean_y, 'r')
+
+print(fig, 'error_elipses_mk2', '-dpng');
