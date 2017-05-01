@@ -21,8 +21,8 @@ tmax     = cfg.tmax;
 wind     = cfg.wind;
 
 %%%%%%%%%% Force Curve %%%%%%%%%%
-global force_accumulator;
-force_accumulator = [];
+% global force_accumulator;
+% force_accumulator = [];
 
 inital_conds = [coords0, vel0, m0, vol_air0, m_air0];
 [t, res] = ode45(@(t, y) rocket(t, y, cfg), [0, tmax], inital_conds, cfg);
@@ -32,12 +32,14 @@ coords = res(:, 1:3);
 impact_index = find(coords(:, 3) <= 0, 1, 'first');
 max_x        = coords(impact_index, 1);
 impact_pt    = coords(impact_index, :);
+impact_time  = t(impact_index);
 
 % Print it out
 fprintf('Max X = %f\n', impact_pt(1));
 fprintf('Max Z = %f\n', max(coords(:, 3)));
 fprintf('Downrange distance %f meters (%f ft)\n', norm(impact_pt(1:2)), 3.3*norm(impact_pt(1:2)));
 fprintf('angle %f\n', tand(impact_pt(2)/impact_pt(1)));
+fprintf('Flight time %f\n', impact_time);
 % Plot the flightpath of the rocket
 figure; hold on; grid on; axis equal;
 
@@ -48,17 +50,6 @@ quiver3(0, 0, 0, wind(1), wind(2), wind(3));
 xlabel('Downrange Distance x (m)');
 ylabel('Crossrange Distance y (m)');
 zlabel('Vertical Distance z (m)');
-
-%%%%%%%%%% Force Curve Plot %%%%%%%%%%
-% figure; hold on; grid on;
-f_thrust  = force_accumulator(:, 2);
-select    = f_thrust >= 0;
-timestamp = force_accumulator(:, 1);
-
-fileID = fopen('model_force_curve', 'w');
-fprintf(fileID, '%%timestamp force \n');
-fprintf(fileID, '%f\n', f_thrust(select));
-fclose(fileID);
 
 
 % TODO => find a way to do the fucking Isp
